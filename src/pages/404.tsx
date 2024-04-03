@@ -16,7 +16,7 @@ const NotFound = () => {
             404
           </h1>
           <p className="max-w-[25ch] font-bold text-3xl md:text-4xl mx-auto my-8 text-secondary">
-            The page that you have accessed doesn't exist!
+            The page that you have accessed doesn&apos;t exist!
           </p>
 
           <Link href="/" className={buttonVariants({ variant: "default" })}>

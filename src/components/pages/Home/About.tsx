@@ -14,7 +14,7 @@ export const About = () => {
         </div>
         <div className="my-auto">
           <h2 className="text-secondary font-semibold text-3xl md:text-4xl mb-4">
-            I'm Dr. John Doe.
+            I&apos;m Dr. John Doe.
             <br />
             <span className="font-semibold text-gray-700">
               Actually, I love to care Patient.
@@ -33,7 +33,6 @@ export const About = () => {
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
             est harum molestias{" "}
             <span className="font-medium underline">
-              {" "}
               facilis saepe aliquid
             </span>{" "}
             rem quo at inventore sapiente perspiciatis obcaecati fugiat, sit eum
@@ -46,7 +45,7 @@ export const About = () => {
               variant: "default",
             })}
           >
-            Let's Talk
+            Let&apos;s Talk
           </Link>
         </div>
       </div>
