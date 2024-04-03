@@ -3,6 +3,7 @@ import Menu from "@root/public/images/menu.svg";
 
 import React, { useEffect, useState } from "react";
 import { buttonVariants } from "./Button";
+import Link from "next/link";
 
 function Header() {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -33,64 +34,64 @@ function Header() {
         <div className="flex items-center gap-2">
           <Logo className="w-12 hover:curor-pointer text-primary" />
 
-          <a
+          <Link
             href="/"
             className="hidden md:block md:text-secondary font-semibold text-2xl"
           >
             The Dental
-          </a>
+          </Link>
         </div>
         <ul className="flex justify-between items-center gap-8 text-primary hover:text-primary-hover">
           <li>
-            <a
+            <Link
               href="/"
               className="text-secondary font-medium hover:text-primary"
             >
               Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/about"
               className="text-secondary font-medium hover:text-primary"
             >
               About
-            </a>
+            </Link>
           </li>
 
           <li>
-            <a
+            <Link
               href="/contact"
               className="text-secondary font-medium hover:text-primary"
             >
               Contact
-            </a>
+            </Link>
           </li>
           {isNavOpen && (
             <ul>
               <li>
-                <a
+                <Link
                   href="/sign-up"
                   className="text-secondary font-medium hover:text-primary"
                 >
                   Sign Up
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/sign-in"
                   className="text-secondary font-medium hover:text-primary"
                 >
                   Login
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/new-appointment"
                   className="text-secondary font-medium hover:text-primary"
                 >
                   Make Appointment
-                </a>
+                </Link>
               </li>
             </ul>
           )}
@@ -98,17 +99,20 @@ function Header() {
 
         <ul className="hidden md:flex md:items-center md:gap-2">
           <li>
-            <a href="/login" className={buttonVariants({ variant: "outline" })}>
+            <Link
+              href="/login"
+              className={buttonVariants({ variant: "outline" })}
+            >
               Login
-            </a>
+            </Link>
           </li>
           <li>
-            <a
+            <Link
               href="/create-account"
               className={buttonVariants({ variant: "default" })}
             >
               Create account
-            </a>
+            </Link>
           </li>
         </ul>
 

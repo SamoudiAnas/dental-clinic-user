@@ -95,13 +95,13 @@ function Footer() {
           <p className="text-zinc-500 text-sm mb-4 md:mb-0">
             &copy; Copyright {new Date().getFullYear()} - All rights reserved -
             Created By{" "}
-            <a
+            <Link
               target="_blank"
               href="https://samoudianas.dev"
               className="text-primary underline"
             >
               Anas Samoudi
-            </a>
+            </Link>
           </p>
           <p
             className="text-primary underline hover:cursor-pointer"
