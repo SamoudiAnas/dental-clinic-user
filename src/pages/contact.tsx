@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-function contact() {
+function ContactPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -39,8 +39,8 @@ function contact() {
             Send me a <span className="text-primary underline">message</span>
           </h2>
           <p className="text-gray-500 mb-8 max-w-[45ch]">
-            I'm always open to discussing product design work or partnership
-            opportunities.
+            I&apos;m always open to discussing product design work or
+            partnership opportunities.
           </p>
           <form className="md:min-w-[35rem] " onSubmit={onSubmit}>
             <div className="mb-3">
@@ -95,4 +95,4 @@ function contact() {
   );
 }
 
-export default contact;
+export default ContactPage;

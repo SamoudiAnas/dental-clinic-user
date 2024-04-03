@@ -31,7 +31,7 @@ const About = () => {
             Hello again!
           </h1>
           <p>
-            I'm{" "}
+            I&apos;m{" "}
             <span className="underline font-medium text-primary">John Doe</span>
             , sequi saepe a illum omnis porro quam consequatur magnam amet
             quaerat soluta nihil, illo suscipit, quasi magni provident
