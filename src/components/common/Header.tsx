@@ -4,9 +4,37 @@ import Menu from "@root/public/images/menu.svg";
 import React, { useEffect, useState } from "react";
 import { buttonVariants } from "./Button";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { cn } from "@/utils";
 
-function Header() {
+const LINKS = [
+  {
+    title: "Home",
+    href: "/",
+  },
+  {
+    title: "About",
+    href: "/about",
+  },
+  {
+    title: "Services",
+    href: "/services",
+  },
+  {
+    title: "Contact",
+    href: "/contact",
+  },
+];
+
+interface HeaderProps {
+  isTransparentBg?: boolean;
+}
+
+function Header({ isTransparentBg = false }: HeaderProps) {
+  const { pathname } = useRouter();
+
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleLinks = () => {
     setIsNavOpen(!isNavOpen);
@@ -14,12 +42,21 @@ function Header() {
 
   const [width, setWidth] = useState(0);
 
-  const updateDimensions = () => {
-    setWidth(window.innerWidth);
-  };
-
   useEffect(() => {
+    const updateDimensions = () => {
+      setWidth(window.innerWidth);
+    };
+
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
     window.addEventListener("resize", updateDimensions);
+    window.addEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -29,79 +66,56 @@ function Header() {
   }, [width]);
 
   return (
-    <div className="shadow-[rgba(17,_17,_26,_0.05)_0px_4px_16px,_rgba(17,_17,_26,_0.05)_0px_8px_32px]">
+    <div
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 bg-transparent text-white",
+        " transition-all duration-300",
+        (isScrolled || !isTransparentBg) &&
+          "bg-white text-secondary shadow-[rgba(17,_17,_26,_0.05)_0px_4px_16px,_rgba(17,_17,_26,_0.05)_0px_8px_32px]"
+      )}
+    >
       <div className="container flex justify-between items-center p-4">
         <div className="flex items-center gap-2">
           <Logo className="w-12 hover:curor-pointer text-primary" />
 
-          <Link
-            href="/"
-            className="hidden md:block md:text-secondary font-semibold text-2xl"
-          >
+          <Link href="/" className="hidden md:block  font-semibold text-2xl">
             The Dental
           </Link>
-        </div>
-        <ul className="flex justify-between items-center gap-8 text-primary hover:text-primary-hover">
-          <li>
-            <Link
-              href="/"
-              className="text-secondary font-medium hover:text-primary"
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/about"
-              className="text-secondary font-medium hover:text-primary"
-            >
-              About
-            </Link>
-          </li>
 
-          <li>
-            <Link
-              href="/contact"
-              className="text-secondary font-medium hover:text-primary"
-            >
-              Contact
-            </Link>
-          </li>
-          {isNavOpen && (
-            <ul>
-              <li>
+          <ul className=" pl-8 flex justify-between items-center ">
+            {LINKS.map((link) => (
+              <li key={link.title}>
                 <Link
-                  href="/sign-up"
-                  className="text-secondary font-medium hover:text-primary"
+                  href={link.href}
+                  className={cn(
+                    " relative font-medium hover:text-primary py-4 px-4",
+                    "before:content-[''] before:h-0.5 before:w-full before:bg-primary before:-bottom-[13px]",
+                    "before:absolute before:transition-all before:duration-300 before:inset-x-0 before:bg-transparent hover:before:bg-primary",
+                    pathname === link.href && "before:bg-primary text-primary ",
+                    !isScrolled &&
+                      pathname === link.href &&
+                      "before:bg-white text-white",
+                    !isTransparentBg &&
+                      pathname === link.href &&
+                      "text-primary before:bg-primary"
+                  )}
                 >
-                  Sign Up
+                  {link.title}
                 </Link>
               </li>
-              <li>
-                <Link
-                  href="/sign-in"
-                  className="text-secondary font-medium hover:text-primary"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/new-appointment"
-                  className="text-secondary font-medium hover:text-primary"
-                >
-                  Make Appointment
-                </Link>
-              </li>
-            </ul>
-          )}
-        </ul>
+            ))}
+          </ul>
+        </div>
 
         <ul className="hidden md:flex md:items-center md:gap-2">
           <li>
             <Link
               href="/login"
-              className={buttonVariants({ variant: "outline" })}
+              className={buttonVariants({
+                variant: "outline",
+                size: "lg",
+                class: !isScrolled && "border-white",
+              })}
             >
               Login
             </Link>
@@ -109,7 +123,7 @@ function Header() {
           <li>
             <Link
               href="/create-account"
-              className={buttonVariants({ variant: "default" })}
+              className={buttonVariants({ variant: "default", size: "lg" })}
             >
               Create account
             </Link>

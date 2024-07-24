@@ -1,3 +1,4 @@
+import BasicLayout from "@/layouts/basic-layout";
 import Service1Icon from "@root/public/images/service1.svg";
 import Service2Icon from "@root/public/images/service2.svg";
 import Service3Icon from "@root/public/images/service3.svg";
@@ -5,9 +6,9 @@ import Service4Icon from "@root/public/images/service4.svg";
 
 const About = () => {
   return (
-    <div>
+    <BasicLayout isTransparentBg>
       <div
-        className="py-12 bg-cover"
+        className="py-12 pt-48 bg-cover"
         style={{
           backgroundImage: 'url("/images/dentalChair.jpg")',
           backgroundColor: "var(--secondary)",
@@ -89,7 +90,7 @@ const About = () => {
           </div>
         </div>
       </div>
-    </div>
+    </BasicLayout>
   );
 };
 

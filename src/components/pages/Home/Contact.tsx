@@ -2,8 +2,13 @@ import PhoneIcon from "@root/public/images/phone.svg";
 import LocationIcon from "@root/public/images/location.svg";
 import EmailIcon from "@root/public/images/email.svg";
 import TimeIcon from "@root/public/images/time.svg";
+import { Book } from "./Book";
 
-export const Contact = () => {
+interface ContactProps {
+  showBook?: boolean;
+}
+
+export const Contact = ({ showBook = true }: ContactProps) => {
   return (
     <div
       style={{
@@ -57,6 +62,7 @@ export const Contact = () => {
           </div>
         </div>
       </section>
+      {showBook && <Book />}
     </div>
   );
 };
