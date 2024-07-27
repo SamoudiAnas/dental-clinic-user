@@ -18,6 +18,7 @@ export const useNewAppointment = create<NewAppointment>((set) => ({
   time: "",
   phone: "",
   name: "",
+  email: "",
   setDate: (date: Date) => set({ date }),
   setTime: (time: string) => set({ time }),
   setPhone: (phone: string) => set({ phone }),
