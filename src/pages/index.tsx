@@ -1,8 +1,7 @@
-import { About } from "@/components/pages/home/About";
-import { Book } from "@/components/pages/home/Book";
-import { Contact } from "@/components/pages/home/Contact";
-import Hero from "@/components/pages/home/Hero";
-import { Services } from "@/components/pages/home/Services";
+import { About } from "@/components/pages/home/about";
+import { Contact } from "@/components/pages/home/contact";
+import Hero from "@/components/pages/home/hero";
+import { Services } from "@/components/pages/home/services";
 import BasicLayout from "@/layouts/basic-layout";
 import Head from "next/head";
 

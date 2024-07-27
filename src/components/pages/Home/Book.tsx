@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/components/common/Button";
+import { buttonVariants } from "@/components/common/button";
 import Link from "next/link";
 
 export const Book = () => {
@@ -8,7 +8,7 @@ export const Book = () => {
         style={{
           backgroundSize: "100%",
         }}
-        className="py-32 bg-no-repeat px-4 text-center text-white container relative z-10 bg-primary"
+        className="py-32 bg-no-repeat px-4 text-center text-white  container max-w-screen-lg  relative z-10 bg-primary"
       >
         <h2 className="text-3xl font-semibold md:text-5xl">
           Book An Appintment Online

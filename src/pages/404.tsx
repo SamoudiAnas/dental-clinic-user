@@ -1,11 +1,11 @@
-import { buttonVariants } from "@/components/common/Button";
+import { buttonVariants } from "@/components/common/button";
 import BasicLayout from "@/layouts/basic-layout";
 import Link from "next/link";
 
 const NotFound = () => {
   return (
     <BasicLayout>
-      <div className="container flex justify-center items-center md:text-left md:min-h-[75vh] text-center py-12">
+      <div className=" container max-w-screen-lg  flex justify-center items-center md:text-left md:min-h-[75vh] text-center py-12">
         <div className="md:grid md:grid-cols-2 md:gap-16">
           <img
             src="/images/notFound.svg"

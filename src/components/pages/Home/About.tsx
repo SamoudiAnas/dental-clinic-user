@@ -1,15 +1,15 @@
-import { buttonVariants } from "@/components/common/Button";
+import { buttonVariants } from "@/components/common/button";
 import Link from "next/link";
 
 export const About = () => {
   return (
-    <section className="container pb-16">
+    <section className="container max-w-screen-lg py-16 md:py-28 px-4">
       <div className=" md:grid md:grid-cols-[1fr_2fr] md:gap-16">
-        <div className="my-auto">
+        <div className="my-auto h-full">
           <img
             src="/images/about.jpg"
             alt="Dr. John Doe"
-            className="h-96 mb-8 md:mb-0"
+            className="h-full mb-8 md:mb-0 object-cover object-center rounded-lg"
           />
         </div>
         <div className="my-auto">
@@ -20,24 +20,18 @@ export const About = () => {
               Actually, I love to care Patient.
             </span>
           </h2>
-          <p className="mb-8">
-            Lorem ipsum dolor sit amet{" "}
-            <span className="font-medium underline">
-              consectetur adipisicing elit.
-            </span>{" "}
-            Saepe, quam alias nemo a animi, eos placeat incidunt ratione eveniet
-            obcaecati, necessitatibus explicabo sapiente! Pariatur hic eos
-            facilis odio nemo nisi.
+          <div className="w-12 h-1 bg-primary mb-8"></div>
+          <p className="mb-8 text-gray-600">
+            I am a dentist with over 10 years of experience in the field. I have
+            a passion for helping people achieve their best smile and maintain
+            good oral health. <br />
+            <br /> I offer a wide range of dental services, including general
+            dentistry, cosmetic dentistry, and orthodontics. Whether you need a
+            routine cleaning or a complete smile makeover, I am here to help.
             <br />
-            <br />
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
-            est harum molestias{" "}
-            <span className="font-medium underline">
-              facilis saepe aliquid
-            </span>{" "}
-            rem quo at inventore sapiente perspiciatis obcaecati fugiat, sit eum
-            soluta veritatis expedita deserunt voluptates!
-            <br />
+            <br />I take the time to listen to your concerns and develop a
+            personalized treatment plan that meets your needs and fits your
+            budget.
           </p>
           <Link
             href="/TheDental/client/contact"

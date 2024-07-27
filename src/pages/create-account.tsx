@@ -1,16 +1,19 @@
+import LoginIllustration from "@root/public/svgs/login.svg";
 import { CreateAccountForm, createAccountSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Link from "next/link";
 
-import { Input } from "@/components/common/Input";
-import { InputError } from "@/components/common/InputError";
-import { Button, buttonVariants } from "@/components/common/Button";
+import { Input } from "@/components/common/input";
+import { InputError } from "@/components/common/input-error";
+import { Button, buttonVariants } from "@/components/common/button";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 import { createAccount } from "@/helpers/auth.helper";
 import BasicLayout from "@/layouts/basic-layout";
+import { Label } from "@/components/common/label";
+import Head from "next/head";
 
 function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
@@ -59,30 +62,41 @@ function SignUp() {
 
   return (
     <BasicLayout>
-      <div className="flex justify-center flex-col min-h-[70vh] bg-zinc-50 mt-20">
-        <div className="container px-12 py-4 lg:max-w-lg">
-          <h2 className="text-center text-2xl md:text-4xl mb-8">
+      <Head>
+        <title>Create Account | The Dental</title>
+        <meta
+          name="description"
+          content="Create an account to access The Dental services and features"
+        />
+      </Head>
+      <div className="px-4 flex justify-center flex-col md:grid md:grid-cols-2 gap-8 md:gap-16 min-h-[90vh] items-center  pt-36 mb-20 container max-w-screen-lg">
+        <LoginIllustration className="w-full h-auto" />
+        <div className="p-4 md:p-8 flex flex-col rounded-xl  border shadow-xl w-full">
+          <h2 className="font-semibold text-2xl md:text-4xl mb-4">
             Welcome to{" "}
             <span className="font-bold text-primary">
               <br /> The Dental
             </span>
           </h2>
+          <div className="w-12 h-1 bg-primary mb-8"></div>
           <form onSubmit={onSubmit}>
             <div className="md:grid md:grid-cols-2 gap-4 mb-3 h-fit">
               <div>
+                <Label htmlFor="firstName">First Name</Label>
                 <Input
                   type="text"
                   autoComplete="on"
-                  placeholder="First Name"
+                  placeholder="John"
                   hasError={!!errors.firstName}
                   {...register("firstName")}
                 />
                 <InputError>{errors.firstName?.message}</InputError>
               </div>
               <div>
+                <Label htmlFor="lastName">Last Name</Label>
                 <Input
                   type="text"
-                  placeholder="Last Name"
+                  placeholder="Doe"
                   hasError={!!errors.lastName}
                   {...register("lastName")}
                 />
@@ -91,24 +105,27 @@ function SignUp() {
             </div>
 
             <div className="mb-3">
+              <Label htmlFor="phoneNumber">Phone Number</Label>
               <Input
                 type="text"
-                placeholder="Phone Number"
+                placeholder="+234 123 456 7890"
                 hasError={!!errors.phoneNumber}
                 {...register("phoneNumber")}
               />
               <InputError>{errors.phoneNumber?.message}</InputError>
             </div>
             <div className="mb-3">
+              <Label htmlFor="email">Email Address</Label>
               <Input
                 type="email"
-                placeholder="Email Address"
+                placeholder="email@example.com"
                 hasError={!!errors.email}
                 {...register("email")}
               />
               <InputError>{errors.email?.message}</InputError>
             </div>
             <div className="mb-3">
+              <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
                   type={isPasswordVisible ? "text" : "password"}
@@ -118,7 +135,7 @@ function SignUp() {
                 />
                 <button
                   type="button"
-                  className="absolute top-1/2 right-4 -translate-y-1/2"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 hover:text-gray-600"
                 >
                   {isPasswordVisible ? (
                     <EyeOff
@@ -136,6 +153,7 @@ function SignUp() {
               <InputError>{errors.password?.message}</InputError>
             </div>
             <div className="mb-3">
+              <Label htmlFor="confirmPassword">Confirm Password</Label>
               <div className="relative">
                 <Input
                   type={isConfirmPasswordVisible ? "text" : "password"}
@@ -145,7 +163,7 @@ function SignUp() {
                 />
                 <button
                   type="button"
-                  className="absolute top-1/2 right-4 -translate-y-1/2"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 hover:text-gray-600"
                 >
                   {isConfirmPasswordVisible ? (
                     <EyeOff
@@ -167,7 +185,12 @@ function SignUp() {
               <InputError>{errors.confirmPassword?.message}</InputError>
             </div>
 
-            <Button fullWidth disabled={isLoading} type="submit">
+            <Button
+              fullWidth
+              disabled={isLoading}
+              type="submit"
+              className="mt-2"
+            >
               {isLoading ? (
                 <Loader2 className="animate-spin mx-auto" />
               ) : (
@@ -176,7 +199,7 @@ function SignUp() {
             </Button>
           </form>
 
-          <p className="text-center my-2">
+          <p className="text-center text-sm text-gray-500 my-2 mt-4">
             Already have an account?
             <Link
               href="/login"

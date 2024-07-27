@@ -1,7 +1,7 @@
-import Logo from "@root/public/images/logo.svg";
+import Logo from "@root/public/svgs/logo.svg";
 import { ExternalLink, Inbox, MapPinned, Phone } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "./Button";
+import { buttonVariants } from "../common/button";
 import { useRouter } from "next/router";
 import { cn } from "@/utils";
 
@@ -11,13 +11,13 @@ function Footer() {
 
   return (
     <div className={cn("py-8 px-4 bg-zinc-900", isHomePage && "pt-24 -mt-16 ")}>
-      <div className="container">
+      <div className=" container max-w-screen-lg ">
         <div className="flex flex-col gap-8 md:flex-row md:justify-between md:items-center">
           <Link
             href="/"
-            className="flex justify-center items-center gap-2 mt-8 mb-4  md:justify-start"
+            className="flex flex-col md:flex-row justify-center items-center gap-2 mt-8 mb-4  md:justify-start"
           >
-            <Logo className="size-24 text-primary hover:cursor-pointer" />
+            <Logo className="size-16 md:size-24 text-primary hover:cursor-pointer" />
             <p className="text-white font-semibold text-xl">The Dental</p>
           </Link>
 
@@ -32,29 +32,33 @@ function Footer() {
             <ExternalLink className="size-5" />
           </Link>
         </div>
-        <div className="flex flex-col gap-4 md:flex-row md:justify-between my-8 lg:px-16">
+        <div className="flex flex-col gap-4 md:flex-row md:justify-between my-8 lg:px-8">
           <div className="flex items-center gap-4">
-            <Inbox className="text-primary size-8 shrink-0" />
+            <Inbox className="text-primary size-6 md:size-8 shrink-0" />
             <div>
-              <p className="font-medium text-lg text-white">
+              <p className="font-medium text-sm md:text-lg text-white">
                 email@contact.com
               </p>
-              <p className="font-medium text-lg text-white">
+              <p className="font-medium text-sm md:text-lg text-white">
                 email2@contact.com
               </p>
             </div>
           </div>{" "}
           <div className="flex items-center gap-4">
-            <MapPinned className="text-primary size-8 shrink-0" />
-            <p className="font-medium text-lg text-white max-w-[30ch]">
+            <MapPinned className="text-primary size-6 md:size-8 shrink-0" />
+            <p className="font-medium text-sm md:text-lg text-white max-w-[30ch]">
               866 Balistreri Light Suite 937, Helgatown 93810-6364
             </p>
           </div>
           <div className="flex items-center gap-4">
-            <Phone className="text-primary size-8 shrink-0" />
+            <Phone className="text-primary size-6 md:size-8 shrink-0" />
             <div>
-              <p className="font-medium text-lg text-white">+1 234 567 890</p>
-              <p className="font-medium text-lg text-white">+1 234 567 890</p>
+              <p className="font-medium text-sm md:text-lg text-white">
+                +1 234 567 890
+              </p>
+              <p className="font-medium text-sm md:text-lg text-white">
+                +1 234 567 890
+              </p>
             </div>
           </div>
         </div>
@@ -63,7 +67,7 @@ function Footer() {
           <li>
             <Link
               href="/"
-              className="text-white font-medium hover:text-primary"
+              className="text-sm md:text-base text-white font-medium hover:text-primary"
             >
               Home
             </Link>
@@ -71,7 +75,7 @@ function Footer() {
           <li>
             <Link
               href="/about"
-              className="text-white font-medium hover:text-primary"
+              className="text-sm md:text-base text-white font-medium hover:text-primary"
             >
               About
             </Link>
@@ -79,23 +83,23 @@ function Footer() {
           <li>
             <Link
               href="/contact"
-              className="text-white font-medium hover:text-primary"
+              className="text-sm md:text-base text-white font-medium hover:text-primary"
             >
               Contact
             </Link>
           </li>
           <li>
             <Link
-              href="/sign-up"
-              className="text-white font-medium hover:text-primary"
+              href="/create-account"
+              className="text-sm md:text-base text-white font-medium hover:text-primary"
             >
-              Sign Up
+              Create Account
             </Link>
           </li>
           <li>
             <Link
-              href="/sign-in"
-              className="text-white font-medium hover:text-primary"
+              href="/login"
+              className="text-sm md:text-base text-white font-medium hover:text-primary"
             >
               Login
             </Link>
@@ -103,15 +107,15 @@ function Footer() {
           <li>
             <Link
               href="/new-appointment"
-              className="text-white font-medium hover:text-primary"
+              className="text-sm md:text-base text-white font-medium hover:text-primary"
             >
               Make Appointment
             </Link>
           </li>
         </ul>
 
-        <div className="px-4 text-center md:text-left md:flex md:justify-between md:items-center mt-16">
-          <p className="text-gray-400 text-base text-center mx-auto mb-4 md:mb-0">
+        <div className="text-center md:text-left md:flex md:justify-between md:items-center mt-16">
+          <p className="text-gray-400 text-sm md:text-base text-center mx-auto mb-4 md:mb-0">
             &copy; Copyright {new Date().getFullYear()} - All rights reserved -
             Created By{" "}
             <Link

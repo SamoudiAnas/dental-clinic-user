@@ -1,11 +1,13 @@
-import Logo from "@root/public/images/logo.svg";
-import Menu from "@root/public/images/menu.svg";
+import Logo from "@root/public/svgs/logo.svg";
 
 import React, { useEffect, useState } from "react";
-import { buttonVariants } from "./Button";
+import { buttonVariants } from "../common/button";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { cn } from "@/utils";
+import { AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import { HamburgerMenu } from "./header/hamburger-menu";
 
 const LINKS = [
   {
@@ -16,10 +18,10 @@ const LINKS = [
     title: "About",
     href: "/about",
   },
-  {
-    title: "Services",
-    href: "/services",
-  },
+  // {
+  //   title: "Services",
+  //   href: "/services",
+  // },
   {
     title: "Contact",
     href: "/contact",
@@ -74,15 +76,15 @@ function Header({ isTransparentBg = false }: HeaderProps) {
           "bg-white text-secondary shadow-[rgba(17,_17,_26,_0.05)_0px_4px_16px,_rgba(17,_17,_26,_0.05)_0px_8px_32px]"
       )}
     >
-      <div className="container flex justify-between items-center p-4">
+      <div className=" container max-w-screen-lg  flex justify-between items-center p-4">
         <div className="flex items-center gap-2">
           <Logo className="w-12 hover:curor-pointer text-primary" />
 
-          <Link href="/" className="hidden md:block  font-semibold text-2xl">
+          <Link href="/" className="hidden lg:block  font-semibold text-2xl">
             The Dental
           </Link>
 
-          <ul className=" pl-8 flex justify-between items-center ">
+          <ul className=" pl-8  justify-between items-center hidden md:flex">
             {LINKS.map((link) => (
               <li key={link.title}>
                 <Link
@@ -111,32 +113,78 @@ function Header({ isTransparentBg = false }: HeaderProps) {
           <li>
             <Link
               href="/login"
-              className={buttonVariants({
-                variant: "outline",
-                size: "lg",
-                class: !isScrolled && "border-white",
-              })}
+              className={buttonVariants({ variant: "link", size: "lg" })}
             >
               Login
             </Link>
           </li>
           <li>
             <Link
-              href="/create-account"
+              href="/new-appointment"
               className={buttonVariants({ variant: "default", size: "lg" })}
             >
-              Create account
+              Make Appointment
             </Link>
           </li>
         </ul>
 
-        <div className="block md:hidden">
-          <Menu
-            className="w-5 flex items-center hover:curor-pointer text-primary"
-            onClick={toggleLinks}
-          />
-        </div>
+        <HamburgerMenu isOpen={isNavOpen} changeState={toggleLinks} />
       </div>
+      <AnimatePresence>
+        {isNavOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed bg-primary inset-0 z-40 md:hidden"
+          >
+            <motion.div
+              initial={{ opacity: 0, scaleY: 0 }}
+              animate={{ opacity: 1, scaleY: 1 }}
+              exit={{ opacity: 0, scaleY: 0 }}
+              transition={{ delay: 0.2, duration: 0.3, ease: "easeInOut" }}
+              className="container mx-auto pt-32 pb-16 flex justify-center h-screen"
+            >
+              <ul className="flex h-auto gap-y-8 justify-center flex-col items-center list-none ">
+                {LINKS.map(({ title, href }, i) => (
+                  <a key={i} href={href} onClick={() => setIsNavOpen(false)}>
+                    <span className="relative text-white font-semibold px-2 text-xl hover:underline hover:decoration-white hover:decoration-4 hover:underline-offset-8">
+                      {title}
+                    </span>
+                  </a>
+                ))}
+
+                <li>
+                  <Link
+                    href="/login"
+                    className={buttonVariants({
+                      variant: "link",
+                      size: "lg",
+                      class:
+                        "text-white text-xl font-semibold hover:decoration-4 hover:underline-offset-8",
+                    })}
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/new-appointment"
+                    className={buttonVariants({
+                      variant: "white",
+                      size: "lg",
+                      class: "py-6 text-xl ",
+                    })}
+                  >
+                    Make Appointment
+                  </Link>
+                </li>
+              </ul>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

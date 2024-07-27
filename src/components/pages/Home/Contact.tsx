@@ -1,8 +1,8 @@
-import PhoneIcon from "@root/public/images/phone.svg";
-import LocationIcon from "@root/public/images/location.svg";
-import EmailIcon from "@root/public/images/email.svg";
-import TimeIcon from "@root/public/images/time.svg";
-import { Book } from "./Book";
+import PhoneIcon from "@root/public/svgs/phone.svg";
+import LocationIcon from "@root/public/svgs/location.svg";
+import EmailIcon from "@root/public/svgs/email.svg";
+import TimeIcon from "@root/public/svgs/time.svg";
+import { Book } from "./book";
 
 interface ContactProps {
   showBook?: boolean;
@@ -17,7 +17,7 @@ export const Contact = ({ showBook = true }: ContactProps) => {
       }}
       className="bg-cover bg-no-repeat"
     >
-      <section className="py-20 px-6 md:grid md:grid-cols-[1fr_2fr] gap-4 container">
+      <section className="py-20 px-6 md:grid md:grid-cols-[1fr_2fr] gap-4  container max-w-screen-lg ">
         <div>
           <h5 className="text-primary font-medium">Now Open</h5>
           <h1 className="text-secondary font-bold text-3xl md:text-5xl my-4">

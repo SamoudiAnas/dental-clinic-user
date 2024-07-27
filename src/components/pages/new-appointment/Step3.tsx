@@ -1,62 +1,82 @@
-import { Button } from "@/components/common/Button";
-import { Input } from "@/components/common/Input";
+import { Button } from "@/components/common/button";
+import { Input } from "@/components/common/input";
 import { useNewAppointment } from "@/stores";
 import { ArrowLeft } from "lucide-react";
 import { useState } from "react";
 import { useSteps } from "react-step-builder";
 
 export const Step3 = () => {
-  const { prev } = useSteps();
-  const [isSet, setisSet] = useState(false);
+  const { prev, next } = useSteps();
+  const [isSet, setisSet] = useState(true);
   const [status, setStatus] = useState("");
-  const { time, setTime, phone, setPhone, reservedFor, setReservedFor } =
+  const { time, setTime, email, setEmail, phone, setPhone, name, setName } =
     useNewAppointment();
 
-  const addAppointmentHandler = () => {};
-
   return (
-    <div>
-      {status && (
-        <div className="bg-primary text-center font-medium text-lg py-3 px-6 my-2 rounded-sm text-white">
-          {status}
-        </div>
-      )}
-      <div className="md:grid md:grid-cols-[4fr_1fr_4fr] md:gap-16">
+    <div className="my-auto min-h-96 flex flex-col">
+      <div className="grow">
         <div className="m-auto">
-          <h3 className="text-gray-600 mb-8">
-            Who is this appointment reserved for?
-          </h3>
+          <h2 className="font-semibold text-xl mb-6">Appointment Details</h2>
+
+          <label
+            htmlFor="full-name"
+            className="block font-medium text-base text-gray-700 mb-2"
+          >
+            Full Name *
+          </label>
           <Input
             type="text"
-            placeholder="Client Name"
-            value={reservedFor}
-            onChange={(e) => setReservedFor(e.target.value)}
+            placeholder="John Doe"
+            name="full-name"
+            id="full-name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
-        <h3 className="bg-primary rounded-[50%] py-5 px-4 text-white m-auto">
-          And
-        </h3>
-        <div className="m-auto">
-          <h3 className="title">What is his phone number?</h3>
+        <div className="mt-4">
+          <label
+            htmlFor="email"
+            className="block font-medium text-base text-gray-700 mb-2"
+          >
+            Email *
+          </label>
+          <Input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="+1 123 456 7890"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
+
+        <div className="mt-4">
+          <label
+            htmlFor="phone-number"
+            className="block font-medium text-base text-gray-700 mb-2"
+          >
+            Phone Number *
+          </label>
           <Input
             type="text"
-            placeholder="Phone number"
+            name="phone-number"
+            id="phone-number"
+            placeholder="+1 123 456 7890"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-4 mt-8 md:mt-16">
+      <div className="flex items-center justify-end gap-4 mt-8 ">
         <Button variant="outline" onClick={prev}>
           <ArrowLeft className="w-6 h-6 mr-2" />
           <span>Back</span>
         </Button>
-        {isSet && (
-          <Button className="next" onClick={addAppointmentHandler}>
-            Create new Appointment
-          </Button>
-        )}
+
+        <Button className="next" onClick={next} disabled={!isSet}>
+          Next
+        </Button>
       </div>
     </div>
   );
