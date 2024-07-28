@@ -69,7 +69,7 @@ function SignUp() {
           content="Create an account to access The Dental services and features"
         />
       </Head>
-      <div className="px-4 flex justify-center flex-col md:grid md:grid-cols-2 gap-8 md:gap-16 min-h-[90vh] items-center  pt-36 mb-20 container max-w-screen-lg">
+      <div className="px-4 flex justify-center flex-col md:grid md:grid-cols-2 gap-8 md:gap-16 min-h-[90vh] items-center  pt-16 mb-20 container max-w-screen-lg">
         <LoginIllustration className="w-full h-auto" />
         <div className="p-4 md:p-8 flex flex-col rounded-xl  border shadow-xl w-full">
           <h2 className="font-semibold text-2xl md:text-4xl mb-4">

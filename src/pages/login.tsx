@@ -12,6 +12,7 @@ import { login } from "@/helpers/auth.helper";
 import { toast } from "@/hooks/use-toast";
 import BasicLayout from "@/layouts/basic-layout";
 import { Label } from "@/components/common/label";
+import Head from "next/head";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +50,14 @@ function Login() {
 
   return (
     <BasicLayout>
-      <div className="px-4 flex justify-center flex-col md:grid md:grid-cols-2 gap-8 md:gap-16 min-h-[80vh] items-center bg-zinc-50 pt-20 container max-w-screen-lg">
+      <Head>
+        <title>Login | The Dental</title>
+        <meta
+          name="description"
+          content="Login to your account to book appointments and manage your profile."
+        />
+      </Head>
+      <div className="px-4 flex justify-center flex-col md:grid md:grid-cols-2 gap-8 md:gap-16 min-h-[80vh] items-center   container max-w-screen-lg">
         <LoginIllustration className="w-full h-auto" />
         <div className="p-4 md:p-8 flex flex-col rounded-xl border shadow-xl w-full">
           <h2 className="font-semibold text-2xl md:text-4xl mb-4">
@@ -80,16 +88,16 @@ function Login() {
                 />
                 <button
                   type="button"
-                  className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-500 hover:text-gray-600"
+                  className="absolute top-1/2 right-4 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                 >
                   {isPasswordVisible ? (
                     <EyeOff
-                      className="w-6 h-6"
+                      className="size-4"
                       onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                     />
                   ) : (
                     <Eye
-                      className="w-6 h-6"
+                      className="size-4"
                       onClick={() => setIsPasswordVisible(!isPasswordVisible)}
                     />
                   )}

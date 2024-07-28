@@ -13,7 +13,7 @@ function ContactPage() {
           content="Contact us for any queries or to book an appointment. We are here to help you."
         />
       </Head>
-      <main className="pt-20">
+      <main>
         <Contact showBook={false} />
         <BookWithForm />
       </main>
