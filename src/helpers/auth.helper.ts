@@ -1,9 +1,10 @@
 import { API_URL } from "@/constants/api";
 import { CreateAccountForm, LoginForm } from "@/schemas";
+import { User } from "@/typings/types";
 import axios from "axios";
 
 export const createAccount = async (data: CreateAccountForm) => {
-  await axios.post(
+  const res = await axios.post(
     API_URL + "/auth/create-account",
     {
       name: data.firstName + " " + data.lastName,
@@ -13,10 +14,15 @@ export const createAccount = async (data: CreateAccountForm) => {
     },
     { withCredentials: true }
   );
+
+  return res.data as {
+    user: User;
+    token: string;
+  };
 };
 
 export const login = async (data: LoginForm) => {
-  await axios.post(
+  const res = await axios.post(
     API_URL + "/auth/login",
     {
       email: data.email,
@@ -24,4 +30,9 @@ export const login = async (data: LoginForm) => {
     },
     { withCredentials: true }
   );
+
+  return res.data as {
+    token: string;
+    user: User;
+  };
 };

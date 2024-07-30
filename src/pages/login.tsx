@@ -8,13 +8,15 @@ import { Input } from "@/components/common/input";
 import { InputError } from "@/components/common/input-error";
 import { Button, buttonVariants } from "@/components/common/button";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
-import { login } from "@/helpers/auth.helper";
 import { toast } from "@/hooks/use-toast";
 import BasicLayout from "@/layouts/basic-layout";
 import { Label } from "@/components/common/label";
 import Head from "next/head";
+import { useAuthStore } from "@/stores";
 
 function Login() {
+  const { login } = useAuthStore();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -29,7 +31,7 @@ function Login() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsLoading(true);
-      await login(data);
+      await login(data.email, data.password);
 
       toast({
         title: "Login successful",
@@ -37,7 +39,7 @@ function Login() {
         variant: "default",
       });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast({
         title: "An error occurred",
         description: "Please try again later",

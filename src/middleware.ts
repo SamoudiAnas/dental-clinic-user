@@ -1,23 +1,33 @@
 import { decode } from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { DecodedToken } from "./typings/interface";
 
-const PROTECTED_ROUTES = ["/my-appointment", "/new-appointment"];
+const redirectToLogin = (request: NextRequest) => {
+  const url = request.nextUrl.clone();
+  url.pathname = "/login";
+  return NextResponse.rewrite(url);
+};
 
 export async function middleware(request: NextRequest) {
   // Check if user is authenticated
-  const token = (request.cookies.get("token") ?? "") as string;
+  const token = localStorage.getItem("token");
 
   // check if token is not expired
   if (token) {
-    const decodedToken = decode(token);
+    const decodedToken = decode(token) as DecodedToken | null;
 
-    console.log(decodedToken);
+    // check if the token is expired
+    if (decodedToken?.exp && decodedToken?.exp < Date.now() / 1000) {
+      return redirectToLogin(request);
+    }
+
+    return NextResponse.next();
   }
 
-  return NextResponse.next();
+  return redirectToLogin(request);
 }
 
 export const config = {
-  matcher: ["/my-appointment/:path*", "/new-appointment/:path*"],
+  matcher: ["/my-appointments/:path*", "/new-appointment/:path*"],
 };

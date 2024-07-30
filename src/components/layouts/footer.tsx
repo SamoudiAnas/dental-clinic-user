@@ -17,7 +17,7 @@ function Footer() {
             href="/"
             className="flex flex-col md:flex-row justify-center items-center gap-2 mt-8 mb-4  md:justify-start"
           >
-            <Logo className="size-16 md:size-24 text-primary hover:cursor-pointer" />
+            <Logo className="size-12 md:size-16 text-primary hover:cursor-pointer" />
             <p className="text-white font-semibold text-xl">The Dental</p>
           </Link>
 

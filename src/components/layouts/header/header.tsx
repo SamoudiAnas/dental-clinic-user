@@ -9,6 +9,7 @@ import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import { HamburgerMenu } from "./hamburger-menu";
 import ProfileMenu from "../profile-menu";
+import { useAuthStore } from "@/stores";
 
 const LINKS = [
   {
@@ -35,10 +36,10 @@ interface HeaderProps {
 
 function Header({ isTransparentBg = false }: HeaderProps) {
   const { pathname } = useRouter();
+  const { isAuthenticated } = useAuthStore();
 
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLogged, setIsLogged] = useState(true);
 
   const toggleLinks = () => {
     setIsNavOpen(!isNavOpen);
@@ -71,20 +72,20 @@ function Header({ isTransparentBg = false }: HeaderProps) {
 
   return (
     <header>
-      {!isTransparentBg && <div className="h-20"></div>}
+      {!isTransparentBg && <div className="h-[72px]"></div>}
       <div
         className={cn(
-          "fixed inset-x-0 top-0 z-50 bg-transparent text-white h-20",
+          "fixed inset-x-0 top-0 z-50 bg-transparent text-white h-[72px]",
           " transition-all duration-300",
           (isScrolled || !isTransparentBg) &&
-            "bg-white text-secondary shadow-[rgba(17,_17,_26,_0.05)_0px_4px_16px,_rgba(17,_17,_26,_0.05)_0px_8px_32px]"
+            "bg-white text-secondary border-b border-gray-200 "
         )}
       >
-        <div className=" container max-w-screen-lg  flex justify-between items-center p-4">
+        <div className=" container max-w-screen-lg  flex justify-between items-center h-full">
           <div className="flex items-center gap-2">
-            <Logo className="w-12 hover:curor-pointer text-primary" />
+            <Logo className="w-10 hover:curor-pointer text-primary" />
 
-            <Link href="/" className="hidden lg:block  font-semibold text-2xl">
+            <Link href="/" className="hidden lg:block  font-semibold text-xl">
               The Dental
             </Link>
 
@@ -95,7 +96,7 @@ function Header({ isTransparentBg = false }: HeaderProps) {
                     href={link.href}
                     className={cn(
                       " relative font-medium hover:text-primary py-4 px-4",
-                      "before:content-[''] before:h-0.5 before:w-full before:bg-primary before:-bottom-[13px]",
+                      "before:content-[''] before:h-0.5 before:w-full before:bg-primary before:-bottom-2",
                       "before:absolute before:transition-all before:duration-300 before:inset-x-0 before:bg-transparent hover:before:bg-primary",
                       pathname === link.href &&
                         "before:bg-primary text-primary ",
@@ -114,14 +115,18 @@ function Header({ isTransparentBg = false }: HeaderProps) {
             </ul>
           </div>
 
-          {isLogged ? (
+          {isAuthenticated ? (
             <ProfileMenu />
           ) : (
             <ul className="hidden md:flex md:items-center md:gap-2">
               <li>
                 <Link
                   href="/login"
-                  className={buttonVariants({ variant: "link", size: "lg" })}
+                  className={buttonVariants({
+                    variant: "link",
+                    size: "lg",
+                    class: !isScrolled && isTransparentBg && "text-white",
+                  })}
                 >
                   Login
                 </Link>
