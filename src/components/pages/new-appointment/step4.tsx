@@ -1,62 +1,114 @@
 import { Button } from "@/components/common/button";
-import { Input } from "@/components/common/input";
+import { API_URL } from "@/constants/api";
+import { queryKeys } from "@/constants/queryKeys";
+import { toast } from "@/hooks/use-toast";
+import { queryClient } from "@/pages/_app";
 import { useNewAppointment } from "@/stores";
+import axios from "axios";
 import { format } from "date-fns";
 import { ArrowLeft } from "lucide-react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useSteps } from "react-step-builder";
 
 export const Step4 = () => {
   const { prev } = useSteps();
-  const [isSet, setisSet] = useState(true);
-  const [status, setStatus] = useState("");
+  const { push } = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     time,
+    email,
     date,
     phone,
-    setPhone,
     name: reservedFor,
-    setName: setReservedFor,
+    reset,
   } = useNewAppointment();
 
-  const addAppointmentHandler = () => {};
+  const addAppointmentHandler = async () => {
+    try {
+      setIsLoading(true);
 
+      const dateString = new Date(date).toDateString();
+      const startTime = new Date(dateString + " " + time);
+      const endTime = new Date(startTime.getTime() + 30 * 60000);
+
+      const res = await axios.post(
+        API_URL + "/appointments/create",
+        { date, startTime, endTime },
+        { withCredentials: true }
+      );
+
+      if (res.status === 201) {
+        toast({
+          title: "Success",
+          description: "Appointment created successfully",
+        });
+
+        push("/my-appointments");
+
+        queryClient.invalidateQueries({
+          queryKey: [queryKeys.availability(date)],
+        });
+        reset();
+      }
+    } catch (error) {
+      console.error("Error creating appointment", error);
+      toast({
+        title: "Error",
+        description: "Error creating appointment",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="my-auto min-h-96 flex flex-col">
       <div className="grow">
         <div className="m-auto">
           <h2 className="font-semibold text-xl mb-6">Appointment Summary</h2>
 
-          <h5 className="block font-medium text-base text-gray-400 mb-2 uppercase">
-            Full Name
+          <h5 className="block font-medium text-sm text-gray-500 mb-2 capitalize">
+            Full Name:
           </h5>
-          <p className="">{reservedFor}</p>
+          <p>{reservedFor}</p>
         </div>
         <div className="mt-4">
-          <h5 className="block font-medium text-base text-gray-400 mb-2 uppercase">
-            Email
+          <h5 className="block font-medium text-sm text-gray-500 mb-2 capitalize">
+            Email:
           </h5>
-          <p className="">{phone}</p>
+          <p>{email}</p>
         </div>
         <div className="mt-4">
-          <h5 className="block font-medium text-base text-gray-400 mb-2 uppercase">
-            Phone Number
+          <h5 className="block font-medium text-sm text-gray-500 mb-2 capitalize">
+            Phone Number:
           </h5>
-          <p className="">{phone}</p>
+          <p>{phone}</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-6 mt-4">
-          <div className="">
-            <h5 className="block font-medium text-base text-gray-400 mb-2 uppercase">
-              Date
+        <div className="grid sm:grid-cols-3 gap-6 mt-4">
+          <div>
+            <h5 className="block font-medium text-sm text-gray-500 mb-2 capitalize">
+              Date:
             </h5>
-            <p className="">{format(date, "MMM dd yyyy")}</p>
+            <p>{format(date, "MMM dd yyyy")}</p>
           </div>
-          <div className="">
-            <h5 className="block font-medium text-base text-gray-400 mb-2 uppercase">
-              Time
+          <div>
+            <h5 className="block font-medium text-sm text-gray-500 mb-2 capitalize">
+              Time:
             </h5>
-            <p className="">{time}</p>
+            <p>
+              {format(
+                new Date(new Date(date).toDateString() + " " + time),
+                "hh:mm a"
+              )}
+            </p>
+          </div>
+          <div>
+            <h5 className="block font-medium text-sm text-gray-500 mb-2 capitalize">
+              Duration:
+            </h5>
+            <p>30 mins</p>
           </div>
         </div>
       </div>
@@ -70,7 +122,7 @@ export const Step4 = () => {
         <Button
           className="next"
           onClick={addAppointmentHandler}
-          disabled={!isSet}
+          disabled={isLoading}
         >
           Submit
         </Button>

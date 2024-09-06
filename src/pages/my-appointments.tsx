@@ -50,7 +50,7 @@ export default function MyAppointments() {
           cancel or reschedule them.
         </p>
 
-        {table.getRowCount() === 0 ? (
+        {table.getRowCount() !== 0 ? (
           <div className="flex flex-col items-center justify-center min-h-96 py-8">
             <JoyRideIllustration className="size-64 mx-auto mb-4" />
             <p className="text-xl font-semibold text-gray-900">
@@ -67,7 +67,7 @@ export default function MyAppointments() {
             </Link>
           </div>
         ) : (
-          <div className="mt-8 overflow-hidden border border-gray-200 rounded-xl">
+          <div className="my-8 overflow-hidden border border-gray-200 rounded-xl">
             <table className="min-w-max table-auto border-collapse space-y-1 sm:min-w-full">
               <thead className="bg-gray-50">
                 {table.getHeaderGroups().map((headerGroup) => (

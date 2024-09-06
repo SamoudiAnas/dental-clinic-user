@@ -1,5 +1,6 @@
 import { buttonVariants } from "@/components/common/button";
 import BasicLayout from "@/layouts/basic-layout";
+import Image from "next/image";
 import Link from "next/link";
 
 const NotFound = () => {
@@ -7,10 +8,12 @@ const NotFound = () => {
     <BasicLayout>
       <div className=" container max-w-screen-lg  flex justify-center items-center md:text-left md:min-h-[75vh] text-center py-12">
         <div className="md:grid md:grid-cols-2 md:gap-16">
-          <img
+          <Image
             src="/svgs/notFound.svg"
             alt="not found"
             className="w-96 md:w-[35rem] mx-auto"
+            width={1000}
+            height={1000}
           />
           <div>
             <h1 className="text-7xl md:text-9xl font-bold text-primary my-8">

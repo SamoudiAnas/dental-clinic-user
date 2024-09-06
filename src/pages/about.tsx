@@ -4,6 +4,7 @@ import Service2Icon from "@root/public/svgs/service2.svg";
 import Service3Icon from "@root/public/svgs/service3.svg";
 import Service4Icon from "@root/public/svgs/service4.svg";
 import Head from "next/head";
+import Image from "next/image";
 
 const About = () => {
   return (
@@ -58,7 +59,13 @@ const About = () => {
         </div>
         <div className="relative w-full mt-8 md:mt-0">
           <div className="object-cover w-full h-full rounded-xl shadow-xl overflow-hidden my-auto">
-            <img src="/images/Dentist.jpg" alt="Dentist" className="w-full" />
+            <Image
+              src="/images/Dentist.jpg"
+              alt="Dentist"
+              className="w-full"
+              width={1000}
+              height={1000}
+            />
           </div>
         </div>
       </div>

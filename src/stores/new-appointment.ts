@@ -11,6 +11,7 @@ type NewAppointment = {
   setPhone: (phone: string) => void;
   setName: (reservedFor: string) => void;
   setEmail: (email: string) => void;
+  reset: () => void;
 };
 
 export const useNewAppointment = create<NewAppointment>((set) => ({
@@ -24,4 +25,6 @@ export const useNewAppointment = create<NewAppointment>((set) => ({
   setPhone: (phone: string) => set({ phone }),
   setName: (reservedFor: string) => set({ name: reservedFor }),
   setEmail: (email: string) => set({ email }),
+  reset: () =>
+    set({ date: new Date(), time: "", phone: "", name: "", email: "" }),
 }));

@@ -10,12 +10,10 @@ const redirectToLogin = (request: NextRequest) => {
 };
 
 export async function middleware(request: NextRequest) {
-  // Check if user is authenticated
-  const token = localStorage.getItem("token");
+  const token = request.cookies.get("token");
 
-  // check if token is not expired
   if (token) {
-    const decodedToken = decode(token) as DecodedToken | null;
+    const decodedToken = decode(token.value) as DecodedToken | null;
 
     // check if the token is expired
     if (decodedToken?.exp && decodedToken?.exp < Date.now() / 1000) {

@@ -1,4 +1,5 @@
 import { buttonVariants } from "@/components/common/button";
+import Image from "next/image";
 import Link from "next/link";
 
 export const About = () => {
@@ -6,10 +7,12 @@ export const About = () => {
     <section className="container max-w-screen-lg py-16 md:py-28 px-4">
       <div className=" md:grid md:grid-cols-[1fr_2fr] md:gap-16">
         <div className="my-auto h-full">
-          <img
+          <Image
             src="/images/about.jpg"
             alt="Dr. John Doe"
             className="h-full mb-8 md:mb-0 object-cover object-center rounded-lg"
+            width={1000}
+            height={1000}
           />
         </div>
         <div className="my-auto">
