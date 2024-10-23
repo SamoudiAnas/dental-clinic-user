@@ -5,8 +5,10 @@ import { DecodedToken } from "./typings/interface";
 
 const redirectToLogin = (request: NextRequest) => {
   const url = request.nextUrl.clone();
+  const returnTo = encodeURIComponent(request.nextUrl.pathname);
   url.pathname = "/login";
-  return NextResponse.rewrite(url);
+  url.searchParams.set("returnTo", returnTo);
+  return NextResponse.redirect(url);
 };
 
 export async function middleware(request: NextRequest) {
