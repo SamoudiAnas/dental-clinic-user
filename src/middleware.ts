@@ -12,6 +12,8 @@ const redirectToLogin = (request: NextRequest) => {
 };
 
 export async function middleware(request: NextRequest) {
+  console.log("All cookies:", request.cookies.getAll());
+
   const token = request.cookies.get("token");
   console.log("Token", token);
 
