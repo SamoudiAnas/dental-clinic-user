@@ -31,6 +31,10 @@ export const login = async (data: LoginForm) => {
     { withCredentials: true }
   );
 
+  await axios.post("/api/manage-token", {
+    token: res.data.token,
+  });
+
   return res.data as {
     token: string;
     user: User;
