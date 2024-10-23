@@ -15,6 +15,10 @@ export const createAccount = async (data: CreateAccountForm) => {
     { withCredentials: true }
   );
 
+  await axios.post("/api/manage-token", {
+    token: res.data.token,
+  });
+
   return res.data as {
     user: User;
     token: string;

@@ -3,6 +3,7 @@ import { CreateAccountForm } from "@/schemas";
 import { UserData } from "@/typings/interface";
 
 import { User } from "@/typings/types";
+import axios from "axios";
 import { create } from "zustand";
 
 interface AuthState {
@@ -56,8 +57,12 @@ export const useAuthStore = create<AuthState>()((set) => ({
   /**
    * Logout a user
    */
-  logout: () => {
+  logout: async () => {
     set({ isAuthenticated: false, user: null, token: null });
+
     localStorage.removeItem("token");
+    await axios.post("/api/manage-token", {
+      token: "",
+    });
   },
 }));
