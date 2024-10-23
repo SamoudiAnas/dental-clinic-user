@@ -13,17 +13,22 @@ const redirectToLogin = (request: NextRequest) => {
 
 export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token");
+  console.log("Token", token);
 
   if (token) {
     const decodedToken = decode(token.value) as DecodedToken | null;
+    console.log("Decoded Token", decodedToken);
 
     // check if the token is expired
     if (decodedToken?.exp && decodedToken?.exp < Date.now() / 1000) {
+      console.log("Token expired");
+
       return redirectToLogin(request);
     }
 
     return NextResponse.next();
   }
+  console.log("No token found");
 
   return redirectToLogin(request);
 }
